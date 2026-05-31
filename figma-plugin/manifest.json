@@ -1,0 +1,12 @@
+{
+  "name": "Autonomous Design Generator",
+  "id": "autonomous-design-generator",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": [
+    "figma"
+  ],
+  "permissions": [
+    "currentuser"
+  ]
+}

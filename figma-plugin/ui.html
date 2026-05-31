@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #1a1a2e;
+      color: #fff;
+      padding: 20px;
+    }
+    
+    h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+    
+    p {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 16px;
+    }
+    
+    .section {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #e5e5e5;
+    }
+    
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      background: #0f0f0f;
+      border: 1px solid #2d2d2d;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #6366f1;
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+      font-family: monospace;
+    }
+    
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px: 600;
+;
+      font-weight      cursor: pointer;
+      margin-bottom: 8px;
+      transition: background 0.2s;
+    }
+    
+    button:hover {
+      background: #4f46e5;
+    }
+    
+    button:disabled {
+      background: #4b5563;
+      cursor: not-allowed;
+    }
+    
+    button.secondary {
+      background: #374151;
+    }
+    
+    button.secondary:hover {
+      background: #4b5563;
+    }
+    
+    .status {
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+    }
+    
+    .status.success {
+      display: block;
+      background: #065f46;
+      color: #6ee7b7;
+    }
+    
+    .status.error {
+      display: block;
+      background: #7f1d1d;
+      color: #fca5a5;
+    }
+    
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .tab {
+      flex: 1;
+      padding: 10px;
+      background: #374151;
+      border: none;
+      border-radius: 8px;
+      color: #9ca3af;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: center;
+    }
+    
+    .tab.active {
+      background: #6366f1;
+      color: #fff;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Autonomous Design Generator</h1>
+  <p>Generate designs for your landing pages</p>
+  
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('design')">Design</button>
+    <button class="tab" onclick="switchTab('sitemap')">Sitemap</button>
+    <button class="tab" onclick="switchTab('colors')">Colors</button>
+  </div>
+  
+  <!-- Design Tab -->
+  <div id="design" class="tab-content active">
+    <div class="section">
+      <label>Primary Color (Hex)</label>
+      <input type="text" id="primaryColor" value="#0F0F0F">
+    </div>
+    
+    <div class="section">
+      <label>Accent Color (Hex)</label>
+      <input type="text" id="accentColor" value="#6366F1">
+    </div>
+    
+    <div class="section">
+      <label>Project Name</label>
+      <input type="text" id="projectName" value="My Landing Page">
+    </div>
+    
+    <button id="generateDesign" onclick="generateDesign()">
+      Generate Landing Page Design
+    </button>
+  </div>
+  
+  <!-- Sitemap Tab -->
+  <div id="sitemap" class="tab-content">
+    <div class="section">
+      <label>Project Name</label>
+      <input type="text" id="sitemapProject" value="My Website">
+    </div>
+    
+    <div class="section">
+      <label>Pages (one per line)</label>
+      <textarea id="sitemapPages">Home
+Features
+Pricing
+Contact</textarea>
+    </div>
+    
+    <button onclick="createSitemap()">
+      Create Sitemap Pages
+    </button>
+  </div>
+  
+  <!-- Colors Tab -->
+  <div id="colors" class="tab-content">
+    <div class="section">
+      <label>Palette Name</label>
+      <input type="text" id="paletteName" value="Brand Colors">
+    </div>
+    
+    <div class="section">
+      <label>Colors (name:hex, one per line)</label>
+      <textarea id="colorList">Primary:#0F0F0F
+Secondary:#1A1A2E
+Accent:#6366F1
+Success:#10B981</textarea>
+    </div>
+    
+    <button onclick="createColors()">
+      Create Color Palette
+    </button>
+  </div>
+  
+  <div id="status" class="status"></div>
+  
+  <script>
+    function switchTab(tabId) {
+      var tabs = document.querySelectorAll('.tab');
+      var contents = document.querySelectorAll('.tab-content');
+      
+      for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+      }
+      for (var j = 0; j < contents.length; j++) {
+        contents[j].classList.remove('active');
+      }
+      
+      var activeTab = document.querySelector('[onclick="switchTab(\'' + tabId + '\')"]');
+      if (activeTab) {
+        activeTab.classList.add('active');
+      }
+      
+      var activeContent = document.getElementById(tabId);
+      if (activeContent) {
+        activeContent.classList.add('active');
+      }
+    }
+    
+    function showStatus(message, isError) {
+      var status = document.getElementById('status');
+      status.textContent = message;
+      status.className = 'status ' + (isError ? 'error' : 'success');
+    }
+    
+    function generateDesign() {
+      var btn = document.getElementById('generateDesign');
+      btn.disabled = true;
+      btn.textContent = 'Generating...';
+      
+      var primaryColor = document.getElementById('primaryColor').value;
+      var accentColor = document.getElementById('accentColor').value;
+      var projectName = document.getElementById('projectName').value;
+      
+      try {
+        parent.postMessage({
+          pluginMessage: {
+            type: 'generate-design',
+            data: {
+              trends: {
+                colors: [primaryColor, accentColor],
+                layouts: ['Bento Grid', 'Hero Centered'],
+                typography: ['Inter'],
+                styles: ['Dark Mode']
+              },
+              sitemap: ['Home', 'Features', 'Pricing', 'Contact'],
+              pageName: projectName
+            }
+          }
+        }, '*');
+        
+        showStatus('Design generation started!');
+      } catch (error) {
+        showStatus('Error: ' + error.message, true);
+      }
+      
+      setTimeout(function() {
+        btn.disabled = false;
+        btn.textContent = 'Generate Landing Page Design';
+      }, 2000);
+    }
+    
+    function createSitemap() {
+      var pagesText = document.getElementById('sitemapPages').value;
+      var pages = pagesText.split('\n').map(function(p) { return p.trim(); }).filter(function(p) { return p; });
+      var projectName = document.getElementById('sitemapProject').value;
+      
+      parent.postMessage({
+        pluginMessage: {
+          type: 'create-sitemap',
+          data: {
+            pages: pages,
+            projectName: projectName
+          }
+        }
+      }, '*');
+      
+      showStatus('Creating ' + pages.length + ' pages...');
+    }
+    
+    function createColors() {
+      var colorText = document.getElementById('colorList').value;
+      var colors = colorText.split('\n').map(function(line) {
+        var parts = line.split(':');
+        if (parts.length === 2) {
+          return { name: parts[0].trim(), hex: parts[1].trim() };
+        }
+        return null;
+      }).filter(function(c) { return c; });
+      
+      var paletteName = document.getElementById('paletteName').value;
+      
+      parent.postMessage({
+        pluginMessage: {
+          type: 'create-colors',
+          data: {
+            colors: colors,
+            paletteName: paletteName
+          }
+        }
+      }, '*');
+      
+      showStatus('Creating ' + colors.length + ' colors...');
+    }
+    
+    // Listen for messages from the plugin code
+    window.onmessage = function(event) {
+      var msg = event.data.pluginMessage;
+      if (msg) {
+        if (msg.type === 'success') {
+          showStatus(msg.message);
+        } else if (msg.type === 'error') {
+          showStatus(msg.message, true);
+        }
+      }
+    };
+  </script>
+</body>
+</html>

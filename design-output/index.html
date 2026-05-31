@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Output - Claude Code Ready</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        // ============================================
+        // DESIGN TOKENS - For Claude Code MCP
+        // ============================================
+        const DESIGN_TOKENS = {
+            // COLORS
+            colors: {
+                primary: {
+                    richBlack: "#0F0F0F",
+                    darkNavy: "#1A1A2E", 
+                    charcoal: "#2D2D2D"
+                },
+                accent: {
+                    indigo: "#6366F1",
+                    purple: "#8B5CF6",
+                    pink: "#EC4899",
+                    emerald: "#10B981",
+                    amber: "#F59E0B"
+                },
+                semantic: {
+                    success: "#22C55E",
+                    warning: "#EAB308", 
+                    error: "#EF4444",
+                    info: "#3B82F6"
+                },
+                neutral: {
+                    50: "#FAFAFA",
+                    100: "#F4F4F5",
+                    200: "#E4E4E7",
+                    300: "#D4D4D8",
+                    400: "#A1A1AA",
+                    500: "#71717A",
+                    600: "#52525B",
+                    700: "#3F3F46",
+                    800: "#27272A",
+                    900: "#18181B"
+                }
+            },
+            
+            // TYPOGRAPHY
+            typography: {
+                fontFamily: "Inter, sans-serif",
+                headings: {
+                    h1: { size: "72px", weight: "700", tracking: "-0.02em", lineHeight: "1.1" },
+                    h2: { size: "48px", weight: "700", tracking: "-0.01em", lineHeight: "1.2" },
+                    h3: { size: "36px", weight: "600", lineHeight: "1.3" },
+                    h4: { size: "24px", weight: "600", lineHeight: "1.4" }
+                },
+                body: {
+                    large: { size: "18px", weight: "400", lineHeight: "1.6" },
+                    base: { size: "16px", weight: "400", lineHeight: "1.5" },
+                    small: { size: "14px", weight: "400", lineHeight: "1.5" },
+                    caption: { size: "12px", weight: "500", lineHeight: "1.4" }
+                }
+            },
+            
+            // SPACING (8px grid)
+            spacing: {
+                0: "0px",
+                xs: "4px",
+                sm: "8px", 
+                md: "16px",
+                lg: "24px",
+                xl: "48px",
+                "2xl": "80px",
+                "3xl": "120px"
+            },
+            
+            // BORDERS & RADIUS
+            borders: {
+                radius: {
+                    sm: "4px",
+                    md: "8px",
+                    lg: "12px",
+                    xl: "16px",
+                    "2xl": "24px",
+                    full: "9999px"
+                },
+                width: {
+                    thin: "1px",
+                    medium: "2px",
+                    thick: "4px"
+                }
+            },
+            
+            // SHADOWS
+            shadows: {
+                sm: "0 1px 2px rgba(0,0,0,0.05)",
+                md: "0 4px 6px rgba(0,0,0,0.1)",
+                lg: "0 10px 15px rgba(0,0,0,0.1)",
+                xl: "0 20px 25px rgba(0,0,0,0.15)",
+                glow: "0 0 20px rgba(99,102,241,0.3)"
+            },
+            
+            // ANIMATIONS
+            animations: {
+                durations: {
+                    fast: "150ms",
+                    normal: "200ms",
+                    slow: "300ms"
+                },
+                easing: {
+                    default: "ease-out",
+                    smooth: "cubic-bezier(0.4, 0, 0.2, 1)"
+                }
+            },
+            
+            // BREAKPOINTS
+            breakpoints: {
+                sm: "640px",
+                md: "768px",
+                lg: "1024px",
+                xl: "1280px",
+                "2xl": "1536px"
+            }
+        };
+
+        // ============================================
+        // LANDING PAGE SPEC - For Figma Generation
+        // ============================================
+        const LANDING_PAGE = {
+            name: "SaaS Landing",
+            projectType: "Landing Page",
+            
+            sections: [
+                {
+                    name: "Navigation",
+                    elements: [
+                        { type: "logo", text: "SaaS Landing" },
+                        { type: "nav-links", items: ["Colors", "Typography", "Components", "Preview"] },
+                        { type: "button", text: "Get Started", variant: "primary" }
+                    ]
+                },
+                {
+                    name: "Hero",
+                    elements: [
+                        { type: "heading", text: "Build something amazing today", size: "h1" },
+                        { type: "subheading", text: "Powerful features to help you build faster, scale easier, and grow bigger." },
+                        { type: "buttons", items: ["Start Free Trial", "Watch Demo"] }
+                    ]
+                },
+                {
+                    name: "Social Proof",
+                    elements: [
+                        { type: "logo-strip", count: 5 }
+                    ]
+                },
+                {
+                    name: "Features",
+                    layout: "bento-grid",
+                    items: [
+                        { title: "Lightning Fast", description: "Optimized performance" },
+                        { title: "Enterprise Security", description: "SOC2 compliant" },
+                        { title: "Advanced Analytics", description: "Real-time insights" },
+                        { title: "Global Scale", description: "35+ regions worldwide" },
+                        { title: "Custom Integrations", description: "Connect your tools" },
+                        { title: "24/7 Support", description: "Always here to help" }
+                    ]
+                },
+                {
+                    name: "Pricing",
+                    items: [
+                        { name: "Starter", price: "$0", features: ["Basic features", "1 user", "Community support"] },
+                        { name: "Pro", price: "$29", features: ["All features", "Unlimited users", "Priority support"], highlighted: true },
+                        { name: "Enterprise", price: "Custom", features: ["Custom solutions", "Dedicated manager", "SLA"] }
+                    ]
+                },
+                {
+                    name: "CTA",
+                    elements: [
+                        { type: "heading", text: "Ready to get started?" },
+                        { type: "email-input", placeholder: "Enter your email" },
+                        { type: "button", text: "Start Free Trial", variant: "primary" }
+                    ]
+                },
+                {
+                    name: "Footer",
+                    elements: [
+                        { type: "links", columns: 4 },
+                        { type: "copyright", text: "© 2026 SaaS Landing. All rights reserved." }
+                    ]
+                }
+            ]
+        };
+
+        // ============================================
+        // FIGMA GENERATION SPEC
+        // ============================================
+        const FIGMA_SPEC = {
+            canvas: {
+                width: 1440,
+                height: 2000,
+                backgroundColor: "#0F0F0F"
+            },
+            colors: {
+                primary: "#0F0F0F",
+                secondary: "#1A1A2E",
+                accent: "#6366F1",
+                accentSecondary: "#8B5CF6",
+                accentTertiary: "#EC4899",
+                text: "#FFFFFF",
+                textSecondary: "#A1A1AA",
+                card: "#27272A",
+                border: "#3F3F46"
+            },
+            typography: {
+                fontFamily: "Inter",
+                sizes: {
+                    h1: 56,
+                    h2: 40,
+                    h3: 24,
+                    h4: 18,
+                    body: 16,
+                    small: 14,
+                    caption: 12
+                }
+            },
+            spacing: {
+                xs: 4,
+                sm: 8,
+                md: 16,
+                lg: 24,
+                xl: 48,
+                xxl: 80
+            },
+            borderRadius: {
+                sm: 4,
+                md: 8,
+                lg: 12,
+                xl: 16
+            }
+        };
+
+        // ============================================
+        // INSTRUCTIONS FOR CLAUDE CODE
+        // ============================================
+        /*
+        CLAUDE CODE INSTRUCTIONS:
+        
+        1. Read DESIGN_TOKENS for color, typography, spacing values
+        2. Read LANDING_PAGE for content and structure
+        3. Read FIGMA_SPEC for exact dimensions
+        
+        TO GENERATE IN FIGMA:
+        - Use Figma MCP or REST API to create a new frame
+        - Apply colors from DESIGN_TOKENS.colors
+        - Use typography settings from DESIGN_TOKENS.typography
+        - Create sections as defined in LANDING_PAGE.sections
+        */
+        
+        // Export for Node.js/Claude Code
+        if (typeof module !== 'undefined' && module.exports) {
+            module.exports = { DESIGN_TOKENS, LANDING_PAGE, FIGMA_SPEC };
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #0F0F0F; 
+            color: #fff;
+        }
+        
+        /* Glass Effect */
+        .glass {
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        
+        section { padding: 80px 24px; }
+        @media (max-width: 768px) { section { padding: 48px 16px; } }
+    </style>
+</head>
+<body class="bg-[#0F0F0F] text-white">
+    <!-- NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#6366F1] to-[#8B5CF6] flex items-center justify-center font-bold">S</div>
+                <span class="text-xl font-bold">SaaS Landing</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#design-tokens" class="text-gray-400 hover:text-white transition-colors">Design Tokens</a>
+                <a href="#landing-preview" class="text-gray-400 hover:text-white transition-colors">Preview</a>
+                <button class="px-5 py-2 bg-[#6366F1] rounded-lg font-medium hover:shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all">Get Started</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- DESIGN TOKENS SECTION -->
+    <section id="design-tokens" class="pt-32 pb-16 bg-[#0A0A0A]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl font-bold mb-4">Design System</h1>
+                <p class="text-gray-400 max-w-2xl mx-auto">Design tokens embedded in this file. Claude Code can read DESIGN_TOKENS, LANDING_PAGE, and FIGMA_SPEC to generate designs.</p>
+            </div>
+            
+            <!-- COLORS -->
+            <div class="mb-20">
+                <h2 class="text-2xl font-bold mb-6">Colors</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-zinc-800 p-4 rounded-lg">
+                        <div class="h-20 rounded-lg mb-3" style="background: #0F0F0F"></div>
+                        <p class="text-sm font-bold">Primary</p>
+                        <p class="text-xs text-gray-500">#0F0F0F</p>
+                    </div>
+                    <div class="bg-zinc-800 p-4 rounded-lg">
+                        <div class="h-20 rounded-lg mb-3" style="background: #1A1A2E"></div>
+                        <p class="text-sm font-bold">Secondary</p>
+                        <p class="text-xs text-gray-500">#1A1A2E</p>
+                    </div>
+                    <div class="bg-zinc-800 p-4 rounded-lg">
+                        <div class="h-20 rounded-lg mb-3" style="background: #6366F1"></div>
+                        <p class="text-sm font-bold">Accent</p>
+                        <p class="text-xs text-gray-500">#6366F1</p>
+                    </div>
+                    <div class="bg-zinc-800 p-4 rounded-lg">
+                        <div class="h-20 rounded-lg mb-3" style="background: #8B5CF6"></div>
+                        <p class="text-sm font-bold">Purple</p>
+                        <p class="text-xs text-gray-500">#8B5CF6</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TYPOGRAPHY -->
+            <div class="mb-20">
+                <h2 class="text-2xl font-bold mb-6">Typography</h2>
+                <div class="bg-zinc-800 p-6 rounded-lg">
+                    <p class="text-6xl font-bold mb-2">H1 - 72px</p>
+                    <p class="text-5xl font-bold mb-2">H2 - 48px</p>
+                    <p class="text-3xl font-semibold mb-2">H3 - 36px</p>
+                    <p class="text-xl font-semibold mb-2">H4 - 24px</p>
+                    <p class="text-base">Body - 16px</p>
+                    <p class="text-sm text-gray-400 mt-4">Font: Inter</p>
+                </div>
+            </div>
+            
+            <!-- SPACING -->
+            <div class="mb-20">
+                <h2 class="text-2xl font-bold mb-6">Spacing (8px Grid)</h2>
+                <div class="flex flex-wrap gap-4">
+                    <div class="bg-zinc-800 p-4 rounded-lg text-center">
+                        <div class="w-4 h-4 bg-[#6366F1] mx-auto mb-2"></div>
+                        <p class="text-xs font-bold">4px</p>
+                    </div>
+                    <div class="bg-zinc-800 p-4 rounded-lg text-center">
+                        <div class="w-8 h-8 bg-[#6366F1] mx-auto mb-2"></div>
+                        <p class="text-xs font-bold">8px</p>
+                    </div>
+                    <div class="bg-zinc-800 p-4 rounded-lg text-center">
+                        <div class="w-16 h-16 bg-[#6366F1] mx-auto mb-2"></div>
+                        <p class="text-xs font-bold">16px</p>
+                    </div>
+                    <div class="bg-zinc-800 p-4 rounded-lg text-center">
+                        <div class="w-24 h-24 bg-[#6366F1] mx-auto mb-2"></div>
+                        <p class="text-xs font-bold">24px</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LANDING PREVIEW SECTION -->
+    <section id="landing-preview" class="bg-[#0F0F0F]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl font-bold mb-4">Landing Page Preview</h1>
+                <p class="text-gray-400">Visual preview of the generated landing page</p>
+            </div>
+            
+            <!-- Hero -->
+            <div class="text-center py-20">
+                <h2 class="text-5xl font-bold mb-6">Build something amazing today</h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-8">Powerful features to help you build faster, scale easier, and grow bigger.</p>
+                <div class="flex justify-center gap-4">
+                    <button class="px-6 py-3 bg-[#6366F1] rounded-lg font-medium hover:shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all">Start Free Trial</button>
+                    <button class="px-6 py-3 bg-zinc-800 rounded-lg font-medium hover:bg-zinc-700 transition-all">Watch Demo</button>
+                </div>
+            </div>
+            
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-12">
+                <div class="bg-zinc-800 p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-2">Lightning Fast</h3>
+                    <p class="text-gray-400">Optimized performance</p>
+                </div>
+                <div class="bg-zinc-800 p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-2">Enterprise Security</h3>
+                    <p class="text-gray-400">SOC2 compliant</p>
+                </div>
+                <div class="bg-zinc-800 p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-2">Advanced Analytics</h3>
+                    <p class="text-gray-400">Real-time insights</p>
+                </div>
+            </div>
+            
+            <!-- Pricing -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 py-12">
+                <div class="bg-zinc-800 p-6 rounded-xl text-center">
+                    <h3 class="text-xl font-bold mb-2">Starter</h3>
+                    <p class="text-4xl font-bold text-[#6366F1] mb-4">$0</p>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li>Basic features</li>
+                        <li>1 user</li>
+                    </ul>
+                </div>
+                <div class="bg-zinc-800 p-6 rounded-xl text-center border-2 border-[#6366F1]">
+                    <h3 class="text-xl font-bold mb-2">Pro</h3>
+                    <p class="text-4xl font-bold text-[#6366F1] mb-4">$29</p>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li>All features</li>
+                        <li>Unlimited users</li>
+                    </ul>
+                </div>
+                <div class="bg-zinc-800 p-6 rounded-xl text-center">
+                    <h3 class="text-xl font-bold mb-2">Enterprise</h3>
+                    <p class="text-4xl font-bold text-[#6366F1] mb-4">Custom</p>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li>Custom solutions</li>
+                        <li>Dedicated manager</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="border-t border-zinc-800 py-8 mt-12">
+                <p class="text-center text-gray-500">© 2026 SaaS Landing. All rights reserved.</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
